@@ -4,18 +4,33 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Feedback</title>
+<style type="text/css">
+.hide {
+	display: none;
+}
+
+.show {
+	display: block;
+}
+</style>
 </head>
 <body>
-	<h3>Feedback Form</h3>
-	<form id="formEl">
-		<p>Enter name:</p>
-		<input id="nameEl" type="text" name="name" /> <br>
-		<p>Enter Feedback:</p>
-		<textarea id="feedbackEl" name="feedback"></textarea>
-		<br>
-		<button  value="Submit" type="submit">Submit</button>
-	</form>
-	<script  type="text/javascript">
+	<!--feedback form  -->
+	<div class="show" id="form-block">
+		<h3>Feedback Form</h3>
+		<form id="formEl">
+			<p>Enter name:</p>
+			<input id="nameEl" type="text" name="name" /> <br>
+			<p>Enter Feedback:</p>
+			<textarea id="feedbackEl" name="feedback"></textarea>
+			<br>
+			<button value="Submit" type="submit">Submit</button>
+		</form>
+	</div>
+	<!-- submited Feedback -->
+	<div class="hide" id="thankyou-block" >Thank for your feedback!</div>
+	
+	<script type="text/javascript">
 	const form = document.getElementById("formEl");
 	form.addEventListener('submit', onSubmit);
 	
@@ -32,7 +47,14 @@
 				'Content-Type' : 'application/json',
 			},
 			body : JSON.stringify(formData),
-		}).then(res => console.log(res))
+		}).then(res => {
+			console.log(res);
+			document.getElementById("form-block").classList.add('hide');
+			document.getElementById("form-block").classList.remove('show');
+			
+			document.getElementById("thankyou-block").classList.add('show');
+			document.getElementById("thankyou-block").classList.remove('hide');
+			})
 	}
 	 
 	</script>
