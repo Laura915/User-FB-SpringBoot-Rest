@@ -1,11 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Feedback</title>
-   </head>
-   <body>
-    <h1>hello World</h1>
-   </body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feedback</title>
+</head>
+<body>
+	<h3>Feedback Form</h3>
+	<form id="formEl">
+		<p>Enter name:</p>
+		<input id="nameEl" type="text" name="name" /> <br>
+		<p>Enter Feedback:</p>
+		<textarea id="feedbackEl" name="feedback"></textarea>
+		<br>
+		<button  value="Submit" type="submit">Submit</button>
+	</form>
+	<script  type="text/javascript">
+	const form = document.getElementById("formEl");
+	form.addEventListener('submit', onSubmit);
+	
+	function onSubmit(event) {
+		event.preventDefault();
+		let formData = {name: '', feedback: ''};
+		formData.name = document.getElementById("nameEl").value;
+		formData.feedback = document.getElementById("feedbackEl").value;
+		
+		console.log(formData);
+		fetch('http://localhost:8081/usersfeedback', {
+			method : 'POST',
+			headers : {
+				'Content-Type' : 'application/json',
+			},
+			body : JSON.stringify(formData),
+		}).then(res => console.log(res))
+	}
+	 
+	</script>
+</body>
 </html>
